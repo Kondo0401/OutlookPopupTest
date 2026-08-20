@@ -3,7 +3,6 @@ Office.onReady(() => {
 });
 
 function openHQSite(event) {
-
     console.log("Button Click");
 
     window.open(
