@@ -3,18 +3,41 @@ Office.onReady(() => {
 });
 
 function openHQSite(event) {
-    console.log("Button Click");
+    console.log("Popup Test clicked");
 
-    const popup = window.open(
-        "https://www.yahoo.co.jp",
-        "_blank"
-    );
+    const dialogUrl = "https://kondo0401.github.io/OutlookPopupTest/redirect.html";
 
-    if (popup === null) {
-        console.warn("Popup blocked");
-    } else {
-        console.log("Popup opened");
+    try {
+        Office.context.ui.displayDialogAsync(
+            dialogUrl,
+            {
+                height: 80,
+                width: 80,
+                displayInIframe: false
+            },
+            (result) => {
+                if (result.status === Office.AsyncResultStatus.Failed) {
+                    console.error(
+                        "Dialog open failed",
+                        result.error.code,
+                        result.error.message
+                    );
+                } else {
+                    console.log("Office dialog opened");
+
+                    const dialog = result.value;
+                    dialog.addEventHandler(
+                        Office.EventType.DialogEventReceived,
+                        (args) => {
+                            console.warn("Dialog event received", args.error);
+                        }
+                    );
+                }
+            }
+        );
+    } catch (error) {
+        console.error("Unexpected dialog error", error);
+    } finally {
+        event.completed();
     }
-
-    event.completed();
 }
