@@ -1,27 +1,15 @@
 Office.onReady(() => {
+    console.log("Office Ready");
 });
 
-/*
-  Outlookボタン押下時
-*/
 function openHQSite(event) {
 
     console.log("Button Click");
 
-    try {
-
-        window.open(
-            "https://www.microsoft.com",
-            "_blank"
-        );
-
-        console.log("window.open executed");
-
-    } catch (e) {
-
-        console.error(e);
-
-    }
+    window.open(
+        "https://www.yahoo.co.jp",
+        "_blank"
+    );
 
     event.completed();
 }
